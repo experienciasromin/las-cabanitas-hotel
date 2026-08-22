@@ -913,21 +913,22 @@ app.post('/api/reserve', async (req, res) => {
       const response = await fetch(process.env.GOOGLE_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        redirect: 'follow', // Crucial for Google Apps Script 302 redirects
         body: JSON.stringify({
           action: 'reserve',
-          roomId,
-          adults,
-          kids,
-          price: totalPrice,
-          checkIn,
-          checkOut,
-          customerName,
-          customerEmail,
-          customerPhone,
-          customerComments
+          roomId: roomId || '1',
+          adults: adults || 1,
+          kids: kids || 0,
+          price: totalPrice || 0,
+          checkIn: checkIn || '',
+          checkOut: checkOut || '',
+          customerName: customerName || '',
+          customerEmail: customerEmail || '',
+          customerPhone: customerPhone || '',
+          customerComments: customerComments || ''
         })
       });
-      if (response.ok) {
+      if (response.ok || response.status === 302) {
         sheetSaved = true;
       }
     } catch (e) {

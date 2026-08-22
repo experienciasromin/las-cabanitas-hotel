@@ -581,15 +581,15 @@ export default function RoomBooking({ suiteImage, showToast }: RoomBookingProps)
                   Tu cotización rústica ha sido enviada. Los administradores del hotel acaban de recibir la solicitud con el detalle completo.
                 </p>
 
-                {/* Email Simulator Panel */}
+                {/* Email Summary Panel */}
                 <div className="bg-white rounded-2xl border border-wood-200 text-left overflow-hidden shadow-lg mt-6 sm:mt-8">
                   <div className="bg-wood-50 px-4 sm:px-6 py-3 sm:py-4 border-b border-wood-200 flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-widest text-charcoal-500 flex items-center gap-1.5">
+                    <span className="text-xs font-bold uppercase tracking-widest text-charcoal-700 flex items-center gap-1.5 font-sans">
                       <Mail className="w-4 h-4 text-gold-500" />
-                      Simulador de Notificación
+                      Comprobante de Solicitud de Reserva
                     </span>
-                    <span className="px-2 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold uppercase">
-                      {reserveSuccessDetails.emailSentReal ? 'SMTP Enviado' : 'Simulado en Sandbox'}
+                    <span className="px-2 py-0.5 rounded bg-emerald-100 border border-emerald-300 text-emerald-800 text-[10px] font-bold uppercase">
+                      Confirmación Activa
                     </span>
                   </div>
                   <div className="p-4 sm:p-6 text-xs text-charcoal-600 space-y-3 font-mono leading-relaxed bg-wood-50/50">

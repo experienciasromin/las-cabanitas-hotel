@@ -46,6 +46,8 @@ export const IMAGES_CONFIG = {
   } as Record<string, string>
 };
 
+export const GOOGLE_SCRIPT_WEBHOOK_URL = ''; // Se sincroniza automáticamente con el servidor o puedes pegarla aquí
+
 // Enlaces a tus redes sociales
 export const SOCIAL_CONFIG = {
   facebook: 'https://www.facebook.com/tu_pagina',
