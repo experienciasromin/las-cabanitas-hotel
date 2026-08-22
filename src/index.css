@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Georgia", serif;
+  --font-sans: "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Georgia", serif;
+
+  /* Custom palette based on Natural Tones: Gold (#C5A059), Charcoal (#121212), Surface (#1C1C1C), Cream (#F5F2ED), Muted (#A0A0A0) */
+  --color-gold-50: #faf9f5;
+  --color-gold-100: #f1ede1;
+  --color-gold-500: #C5A059; /* Gold from theme */
+  --color-gold-600: #b28c49;
+  --color-gold-700: #9a783b;
+
+  --color-forest-50: #1c1c1c;
+  --color-forest-100: #2a2a2a;
+  --color-forest-200: #3c3c3c;
+  --color-forest-500: #C5A059; 
+  --color-forest-600: #b28c49;
+  --color-forest-700: #9a783b;
+  --color-forest-900: #121212;
+
+  --color-wood-50: #121212; /* Charcoal base */
+  --color-wood-100: #1c1c1c; /* Surface */
+  --color-wood-500: #C5A059; /* Gold */
+  --color-wood-800: #2c2c2c;
+  --color-wood-950: #121212; /* Charcoal */
+
+  --color-charcoal-50: #121212;
+  --color-charcoal-100: #1c1c1c;
+  --color-charcoal-200: #2c2c2c;
+  --color-charcoal-500: #A0A0A0; /* Muted text */
+  --color-charcoal-800: #1c1c1c; /* Surface */
+  --color-charcoal-900: #F5F2ED; /* Cream text */
+  --color-charcoal-950: #121212; /* Charcoal */
+}
+
+/* Custom visual styling */
+.text-stroke-gold {
+  -webkit-text-stroke: 1px var(--color-gold-500);
+  color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #121212;
+  color: #F5F2ED;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #121212;
+}
+::-webkit-scrollbar-thumb {
+  background: #C5A059;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b28c49;
+}

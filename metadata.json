@@ -1,0 +1,6 @@
+{
+  "name": "Las Cabañitas de El Escondite",
+  "description": "Exclusivo hotel boutique de montaña. Cuenta con cabañas equipadas, confort rústico y sistema de cotización y reservas directas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
