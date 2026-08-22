@@ -21,7 +21,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
   const navLinks = [
     { name: 'Inicio', href: '#inicio', icon: Compass },
     { name: 'Habitaciones', href: '#habitaciones', icon: Coffee },
-    { name: 'Contacto', href: '#contacto', icon: Calendar },
+    { name: 'Reservaciones', href: '#habitaciones', icon: Calendar },
   ];
 
   const LogoSVG = ({ className = "h-12 w-auto" }: { className?: string }) => (

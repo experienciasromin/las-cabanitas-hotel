@@ -75,13 +75,13 @@ export default function Footer() {
               <li>
                 <a href="#habitaciones" className="text-wood-200 hover:text-white text-xs md:text-sm font-medium transition-colors flex items-center gap-2">
                   <Coffee className="w-4 h-4 text-gold-500" />
-                  Cabañas y Habitaciones
+                  Cabañas y Tarifas
                 </a>
               </li>
               <li>
-                <a href="#contacto" className="text-wood-200 hover:text-white text-xs md:text-sm font-medium transition-colors flex items-center gap-2">
+                <a href="https://wa.me/50379394220" target="_blank" rel="noopener noreferrer" className="text-wood-200 hover:text-white text-xs md:text-sm font-medium transition-colors flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-gold-500" />
-                  Contáctanos
+                  WhatsApp Directo (+503 7939 4220)
                 </a>
               </li>
             </ul>

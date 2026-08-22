@@ -99,8 +99,8 @@ export default function App() {
       {/* Refugios / Habitaciones Section & Tarificador Form */}
       <RoomBooking suiteImage={SUITE_IMAGE_PATH} showToast={showToast} />
 
-      {/* Contact Section */}
-      <ContactForm showToast={showToast} />
+      {/* Contact Section (Ocultada provisionalmente a solicitud) */}
+      {/* <ContactForm showToast={showToast} /> */}
 
       {/* Footer */}
       <Footer />
