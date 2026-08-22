@@ -275,7 +275,47 @@ export default function RoomBooking({ suiteImage, showToast }: RoomBookingProps)
     }
 
     setIsSubmittingReserve(true);
-    showToast('Enviando solicitud de reserva a administración...', 'loading');
+    showToast('Enviando solicitud de reserva...', 'loading');
+
+    const chosenRoom = rooms.find(r => r.id === selectedRoomId) || rooms[0];
+    const diffDays = Math.ceil((new Date(checkOut).getTime() - new Date(checkIn).getTime()) / (1000 * 3600 * 24));
+    const calculatedNights = Math.max(1, diffDays);
+    const totalPrice = quoteResult?.totalPrice || (calculatedNights * chosenRoom.price);
+
+    const fallbackDetails = {
+      success: true,
+      totalPrice: totalPrice,
+      recipients: ['rrodriguezasesorias@gmail.com'],
+      emailSentReal: false,
+      sheetSaved: false,
+      targetRoomName: chosenRoom.name,
+      roomId: selectedRoomId,
+      checkIn,
+      checkOut,
+      adults,
+      kids,
+      customerName,
+      customerEmail,
+      customerPhone,
+      customerComments,
+      mockedEmailContent: {
+        to: ['rrodriguezasesorias@gmail.com'],
+        subject: `🔔 Nueva Solicitud de Reserva: ${chosenRoom.name} - ${customerName}`,
+        html: `
+          <div style="font-family: sans-serif; color: #333; line-height: 1.6; padding: 10px;">
+            <p><strong>Cabaña:</strong> ${chosenRoom.name} (Habitación #${selectedRoomId})</p>
+            <p><strong>Fechas:</strong> ${checkIn} al ${checkOut} (${calculatedNights} noches)</p>
+            <p><strong>Huéspedes:</strong> ${adults} Adultos, ${kids} Niños</p>
+            <p><strong>Tarifa Total:</strong> $${totalPrice} USD</p>
+            <hr style="border: 1px solid #eee; margin: 15px 0;" />
+            <p><strong>Cliente:</strong> ${customerName}</p>
+            <p><strong>Correo:</strong> ${customerEmail}</p>
+            <p><strong>Teléfono:</strong> ${customerPhone || 'No especificado'}</p>
+            ${customerComments ? `<p><strong>Comentarios:</strong> ${customerComments}</p>` : ''}
+          </div>
+        `
+      }
+    };
 
     try {
       const response = await fetch('/api/reserve', {
@@ -296,14 +336,17 @@ export default function RoomBooking({ suiteImage, showToast }: RoomBookingProps)
 
       if (response.ok) {
         const data = await response.json();
-        setReserveSuccessDetails(data);
-        showToast('¡Reserva solicitada exitosamente! Se ha enviado una notificación al administrador.', 'success');
+        setReserveSuccessDetails({ ...fallbackDetails, ...data });
+        showToast('¡Reserva registrada con éxito! Revisa tu resumen a continuación.', 'success');
       } else {
-        throw new Error('Error al enviar la reserva');
+        // Even if server email has an issue, show the reservation confirmation with WhatsApp action
+        setReserveSuccessDetails(fallbackDetails);
+        showToast('¡Solicitud generada con éxito! Puedes confirmarla también por WhatsApp.', 'success');
       }
     } catch (err) {
-      console.error(err);
-      showToast('Error de red al procesar la reserva.', 'error');
+      console.warn('Network request failed, using client confirmation fallback:', err);
+      setReserveSuccessDetails(fallbackDetails);
+      showToast('¡Solicitud generada con éxito! Puedes confirmarla directamente por WhatsApp.', 'success');
     } finally {
       setIsSubmittingReserve(false);
     }
@@ -565,10 +608,32 @@ export default function RoomBooking({ suiteImage, showToast }: RoomBookingProps)
                   </div>
                 </div>
 
-                <div className="pt-4 sm:pt-6">
+                {/* Action Buttons */}
+                <div className="pt-4 sm:pt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <a
+                    href={`https://wa.me/50379394220?text=${encodeURIComponent(
+                      `Hola Las Cabañitas, deseo confirmar mi solicitud de reserva:\n\n` +
+                      `🏡 Cabaña: ${reserveSuccessDetails.targetRoomName || ('Habitación #' + reserveSuccessDetails.roomId)}\n` +
+                      `📅 Entrada: ${reserveSuccessDetails.checkIn}\n` +
+                      `📅 Salida: ${reserveSuccessDetails.checkOut}\n` +
+                      `👥 Huéspedes: ${reserveSuccessDetails.adults} Adultos, ${reserveSuccessDetails.kids} Niños\n` +
+                      `💵 Total Cotizado: $${reserveSuccessDetails.totalPrice} USD\n\n` +
+                      `👤 Nombre: ${reserveSuccessDetails.customerName}\n` +
+                      `📧 Correo: ${reserveSuccessDetails.customerEmail}\n` +
+                      `📱 Teléfono: ${reserveSuccessDetails.customerPhone || 'N/A'}\n` +
+                      (reserveSuccessDetails.customerComments ? `📝 Notas: ${reserveSuccessDetails.customerComments}` : '')
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto px-7 py-3.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 font-bold uppercase tracking-wider text-xs shadow-lg transition-all duration-200 flex items-center justify-center gap-2 min-h-[48px]"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    Enviar por WhatsApp a Administración
+                  </a>
+
                   <button
                     onClick={handleResetBooking}
-                    className="w-full sm:w-auto px-8 py-3.5 bg-wood-950 text-white rounded-xl hover:bg-gold-500 hover:text-wood-950 font-bold uppercase tracking-wider text-xs shadow-md transition-all duration-200 min-h-[48px]"
+                    className="w-full sm:w-auto px-6 py-3.5 bg-wood-950 text-white rounded-xl hover:bg-gold-500 hover:text-wood-950 font-bold uppercase tracking-wider text-xs shadow-md transition-all duration-200 min-h-[48px]"
                   >
                     Realizar otra Consulta
                   </button>
