@@ -6,6 +6,7 @@ import {
   CheckCircle2, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { RoomType } from '../types';
+import { IMAGES_CONFIG, formatImageUrl } from '../imagesConfig';
 
 interface RoomBookingProps {
   suiteImage: string;
@@ -21,7 +22,7 @@ const DEFAULT_ROOMS_FRONTEND: RoomType[] = [
     capacity: 3,
     maxAdults: 2,
     maxKids: 1,
-    image: '/src/assets/images/luxurious_suite_1783547989633.jpg',
+    image: formatImageUrl(IMAGES_CONFIG.rooms['1']),
     availableCount: 1,
     features: ['Cama Matrimonial', 'Baño Privado', 'Agua Caliente', 'Desayuno Incluido']
   },
@@ -33,7 +34,7 @@ const DEFAULT_ROOMS_FRONTEND: RoomType[] = [
     capacity: 3,
     maxAdults: 2,
     maxKids: 1,
-    image: 'https://images.unsplash.com/photo-1549693578-d683be217e58?auto=format&fit=crop&q=80&w=1000',
+    image: formatImageUrl(IMAGES_CONFIG.rooms['2']),
     availableCount: 1,
     features: ['Cama Queen Size', 'Terraza de Madera', 'Vista al Bosque', 'Cafetera de Campo']
   },
@@ -45,7 +46,7 @@ const DEFAULT_ROOMS_FRONTEND: RoomType[] = [
     capacity: 3,
     maxAdults: 2,
     maxKids: 1,
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1000',
+    image: formatImageUrl(IMAGES_CONFIG.rooms['3']),
     availableCount: 1,
     features: ['Cama King Size', 'Paredes de Tronco', 'Clima de Cumbre', 'Área de Fogata']
   },
@@ -57,7 +58,7 @@ const DEFAULT_ROOMS_FRONTEND: RoomType[] = [
     capacity: 3,
     maxAdults: 2,
     maxKids: 1,
-    image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=1000',
+    image: formatImageUrl(IMAGES_CONFIG.rooms['4']),
     availableCount: 1,
     features: ['Cama Confortable', 'Baño Privado', 'Vistas a la Montaña', 'Detalle de Bienvenida']
   },
@@ -69,7 +70,7 @@ const DEFAULT_ROOMS_FRONTEND: RoomType[] = [
     capacity: 4,
     maxAdults: 4,
     maxKids: 2,
-    image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=1000',
+    image: formatImageUrl(IMAGES_CONFIG.rooms['5']),
     availableCount: 1,
     features: ['2 Camas Grandes', 'Espacio Amplio', 'Balcón Privado', 'Desayuno Campestre']
   }

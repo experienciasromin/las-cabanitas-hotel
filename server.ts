@@ -84,7 +84,7 @@ function convertDriveUrl(url: string): string {
 
   // If it's a plain Google Drive ID (usually 25-55 chars, alphanumeric with dashes/underscores)
   if (/^[a-zA-Z0-9_-]{25,55}$/.test(url)) {
-    return `/api/image-proxy?id=${url}`;
+    return `https://lh3.googleusercontent.com/d/${url}`;
   }
 
   const matchD = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
@@ -101,7 +101,7 @@ function convertDriveUrl(url: string): string {
   }
 
   if (fileId) {
-    return `/api/image-proxy?id=${fileId}`;
+    return `https://lh3.googleusercontent.com/d/${fileId}`;
   }
   return url;
 }

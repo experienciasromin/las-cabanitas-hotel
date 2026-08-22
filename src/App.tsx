@@ -7,23 +7,10 @@ import RoomBooking from './components/RoomBooking';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 
-import { IMAGES_CONFIG } from './imagesConfig';
+import { IMAGES_CONFIG, formatImageUrl } from './imagesConfig';
 
-// Helper to locally resolve the config urls
-function resolveConfigUrl(url: string): string {
-  if (!url) return '';
-  if (url.startsWith('http') || url.startsWith('/') || url.startsWith('.')) {
-    return url;
-  }
-  // If it's a raw Drive ID, use the proxy
-  if (/^[a-zA-Z0-9_-]{25,55}$/.test(url)) {
-    return `/api/image-proxy?id=${url}`;
-  }
-  return url;
-}
-
-const HERO_IMAGE_PATH = resolveConfigUrl(IMAGES_CONFIG.heroBg);
-const SUITE_IMAGE_PATH = resolveConfigUrl(IMAGES_CONFIG.defaultSuite);
+const HERO_IMAGE_PATH = formatImageUrl(IMAGES_CONFIG.heroBg);
+const SUITE_IMAGE_PATH = formatImageUrl(IMAGES_CONFIG.defaultSuite);
 
 export default function App() {
   const [toasts, setToasts] = useState<ToastType[]>([]);
@@ -37,7 +24,7 @@ export default function App() {
         if (res.ok) {
           const data = await res.json();
           if (data.imagesMap && data.imagesMap['Hero']) {
-            setHeroImage(data.imagesMap['Hero']);
+            setHeroImage(formatImageUrl(data.imagesMap['Hero']));
           }
         }
       } catch (e) {
