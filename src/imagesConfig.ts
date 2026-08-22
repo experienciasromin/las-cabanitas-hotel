@@ -46,7 +46,7 @@ export const IMAGES_CONFIG = {
   } as Record<string, string>
 };
 
-export const GOOGLE_SCRIPT_WEBHOOK_URL: string = 'https://script.google.com/macros/s/AKfycbwwjZu8glsKV9PFasPDgnm4KTwmVoX2cKzt84nOnskQM2GgHd7D-X89xtqYfLO1OTqq/exec';
+export const GOOGLE_SCRIPT_WEBHOOK_URL: string = ''; // Pega aquí tu URL de Apps Script si deseas conexión directa inmediata
 
 // Enlaces a tus redes sociales
 export const SOCIAL_CONFIG = {

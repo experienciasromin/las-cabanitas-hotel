@@ -6,7 +6,7 @@ import {
   CheckCircle2, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { RoomType } from '../types';
-import { IMAGES_CONFIG, formatImageUrl } from '../imagesConfig';
+import { IMAGES_CONFIG, formatImageUrl, GOOGLE_SCRIPT_WEBHOOK_URL } from '../imagesConfig';
 
 interface RoomBookingProps {
   suiteImage: string;
@@ -316,6 +316,35 @@ export default function RoomBooking({ suiteImage, showToast }: RoomBookingProps)
         `
       }
     };
+
+    const payload = {
+      action: 'reserve',
+      roomId: selectedRoomId,
+      roomName: chosenRoom.name,
+      checkIn,
+      checkOut,
+      adults,
+      kids,
+      price: totalPrice,
+      customerName,
+      customerEmail,
+      customerPhone,
+      customerComments
+    };
+
+    // If Google Script URL is defined directly in config, trigger it immediately
+    if (GOOGLE_SCRIPT_WEBHOOK_URL && GOOGLE_SCRIPT_WEBHOOK_URL.startsWith('http')) {
+      try {
+        fetch(GOOGLE_SCRIPT_WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors', // Google Apps Script web apps receive no-cors POST seamlessly
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload)
+        }).catch(err => console.log('AppsScript direct dispatch:', err));
+      } catch (e) {
+        console.log('AppsScript catch:', e);
+      }
+    }
 
     try {
       const response = await fetch('/api/reserve', {
